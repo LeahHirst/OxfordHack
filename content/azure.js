@@ -1,12 +1,10 @@
 // Handle all calls to the MS Cognitive Vision API
 
+subscriptionKey = '[KEY HERE]';
+
 getConfigByKey("subscriptionKey", function(value) {
     subscriptionKey = value;
-})
-
-processImage();
-
-
+});
 
 function processImage(blob, successCallback) {
 
@@ -28,7 +26,8 @@ function processImage(blob, successCallback) {
         type: "POST",
         // Request body
         // temp
-        data: blob
+        data: blob,
+        processData: false
     })
     .done(function(data) {
         successCallback(data);
