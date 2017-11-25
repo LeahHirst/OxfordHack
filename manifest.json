@@ -17,13 +17,17 @@
       "run_at": "document_start"
     }
   ],
+  "background": {
+    "scripts": ["content/azure.js", "js/config.js", "js/background.js"]
+  },
   "commands": {
     "toggle-ad": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Y",
-        "mac": "Command+Shift+Y"
+        "default": "Ctrl+Shift+5",
+        "mac": "Command+Shift+5"
       },
-      "description": "Toggle Audio Description on videos"
+      "description": "Toggle Audio Description on videos",
+      "global": true
     }
   },
   "browser_action": {
