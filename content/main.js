@@ -4,21 +4,29 @@ window.onload = function() {
   // Find all videos of the page
   var videos = document.getElementsByTagName("video");
 
-  // Only target the first video
-  var target = videos[0];
-  console.log(target);
+  if (videos != undefined) {
 
-  // Instanciate SCD with the video
-  var scd = Scd(target, {
-    mode: 'PlaybackMode',
-    step_width: 50,
-    step_height: 37
-  });
+    // Only target the first video
+    var target = videos[0];
+    console.log(target);
 
-  // Add the scene change event listener
-  target.addEventListener('scenechange', function(e) {
-    console.log(e);
-  });
+    // Instanciate SCD with the video
+    var scd = Scd(target, {
+      mode: 'PlaybackMode',
+      step_width: 50,
+      step_height: 37
+    });
 
-  target.addEventListener('durationchange', function() { scd.start(); });
+    // Add the scene change event listener
+    target.addEventListener('scenechange', function(e) {
+      scd.getFrameBlob(function(blob) {
+        processImage(blob, function(data) {
+          console.log(data);
+        })
+      });
+    });
+
+    target.addEventListener('durationchange', function() { scd.start(); });
+
+  }
 }
