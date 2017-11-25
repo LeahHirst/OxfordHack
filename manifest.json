@@ -11,7 +11,8 @@
         "js/scd.min.js",
         "js/config.js",
         "content/azure.js",
-        "content/main.js"
+        "content/main.js",
+        "popup/checkBoxScript.js"
       ],
       "run_at": "document_start"
     }
