@@ -8,7 +8,9 @@
       "matches": ["<all_urls>"],
       "js": [
         "js/scd.min.js",
-        "content/main.js"
+        "content/main.js",
+        "content/azure.js",
+        "content/azure_key.js"
       ],
       "run_at": "document_start"
     }
