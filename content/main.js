@@ -8,6 +8,7 @@ window.onload = function() {
 
     // Only target the first video
     var target = videos[0];
+    target.setAttribute('crossorigin', '*');
     console.log(target);
 
     // Instanciate SCD with the video
@@ -19,9 +20,13 @@ window.onload = function() {
 
     // Add the scene change event listener
     target.addEventListener('scenechange', function(e) {
+      console.log("Scene Changed.");
       scd.getFrameBlob(function(blob) {
         processImage(blob, function(data) {
-          console.log(data);
+          target.pause();
+          textToSpeech(data['description']['captions'][0]['text'], function() {
+            target.play();
+          });
         })
       });
     });
