@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Audio Descriptions",
+  "description": "Extension adding descriptions to live videos.",
+  "version": "1.0",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/",
+    "storage",
+    "tabs",
+    "http://*/",
+    "https://*/"
+  ]
+}
