@@ -29,3 +29,23 @@ function getConfigByKey(key, callback) {
     callback(config[key]);
   });
 }
+
+function setEnabled(state) {
+  setConfigByKey('enabled', state);
+  // Tell the user
+  if (state) {
+    textToSpeech('Audio description enabled');
+  } else {
+    textToSpeech('Audio description disabled');
+  }
+}
+
+// Register command listener
+chrome.commands.onCommand.addListener(function(command) {
+  // Toggle state
+  if (command === 'toggle-ad') {
+    getConfigByKey('enabled', function(val) {
+      setEnabled(!val);
+    });
+  }
+});
