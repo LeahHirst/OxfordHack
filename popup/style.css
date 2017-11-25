@@ -2,12 +2,12 @@ html {
     background-color: #f7f9f9;
     height: 400px;
     width: 400px;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Roboto', sans-serif;
     padding: 10px;
 }
 
 h1 {
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-left: 6px solid #a6e3e8;
     padding-left: 10px;
     font-weight: lighter;
@@ -15,13 +15,13 @@ h1 {
 
 
 h3 {
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     font-size: 12pt;
 }
 
 p {
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: black;
     font-size: 12pt;
 }
