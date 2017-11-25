@@ -1,8 +1,8 @@
 // Handle all calls to the MS Cognitive Vision API
 
 subscriptionKeys = {
-  vision: '[KEY]',
-  tts: '[KEY]'
+  vision: 'e5c2bd251bdc4a9badee0740a3a27b74',
+  tts: '7653cc07e944451480f53fc65dfb13a3'
 };
 
 getConfigByKey("subscriptionKey", function(value) {
