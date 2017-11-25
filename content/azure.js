@@ -25,7 +25,6 @@ function processImage(blob, successCallback) {
         },
         type: "POST",
         // Request body
-        // temp
         data: blob,
         processData: false
     })
