@@ -1,8 +1,84 @@
 html {
-    height: 400;
+    background-color: #D4E6F1;
+    height: 600px;
+    width: 400px;
+    font-family: "Segoe UI Light", sans-serif;
 }
 
 body {
-    height: 400;
-    background-color: "#123123";
+    background-color: #D4E6F1;
+}
+
+h1 {
+    font-size: 18px;
+    border-left: 10px;
+    border-left-color: blue;
+}
+
+/* CODE FROM W3 SCHOOLS */
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 18px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* END OF CODE FROM W3C */
+
+#onOffToggle {
+    margin-left: 130px;
 }
