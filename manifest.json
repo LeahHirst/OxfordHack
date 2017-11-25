@@ -7,8 +7,8 @@
     {
       "matches": ["<all_urls>"],
       "js": [
-        "scd.min.js",
-        "background.js"
+        "js/scd.min.js",
+        "content/main.js"
       ],
       "run_at": "document_start"
     }
