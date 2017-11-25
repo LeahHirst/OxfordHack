@@ -17,6 +17,15 @@
       "run_at": "document_start"
     }
   ],
+  "commands": {
+    "toggle-ad": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Toggle Audio Description on videos"
+    }
+  },
   "browser_action": {
     "default_popup": "popup/index.html",
     "default_icon": "popup/icon.png"
