@@ -3,24 +3,22 @@
 <head>
 	<title> Audio Description for Videos </title>
   <link rel="stylesheet" type="text/css" href="style.css" />
-
   <script src="../js/config.js"></script>
   <script src="popup.js"></script>
+  <script src="../js/jquery-3.2.1.min.js"></script>
+  <script src="checkBoxScript.js"></script>
 </head>
 <body>
-    <hr>
     <h1> Settings </h1>
-    <hr>
+    <h3> Please use the settings below to adjust the extension to your preferences </h3>
 
-    <h4> Please use the settings below to adjust the extension to your preferences </h4>
-
-    <label for="#onOffToggle"> Switch on/off the audio description. </label>
-
-    <!-- Rounded switch -->
-    <label class="switch" id="onOffToggle">
-        <input type="checkbox">
-        <span class="slider round"></span>
-    </label>
-
+        <span class="toggle">
+            <p id="text"> Audio description is currently disabled. </p>
+            <!-- Rounded switch -->
+            <label class="switch" id="onOffToggle">
+                <input type="checkbox" id="toggleCheckBox">
+                <span class="slider round"></span>
+            </label>
+        </span>
 </body>
 </html>

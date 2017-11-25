@@ -1,19 +1,31 @@
 html {
-    background-color: #D4E6F1;
-    height: 600px;
+    background-color: #f7f9f9;
+    height: 400px;
     width: 400px;
     font-family: "Segoe UI Light", sans-serif;
-}
-
-body {
-    background-color: #D4E6F1;
+    padding: 10px;
 }
 
 h1 {
-    font-size: 18px;
-    border-left: 10px;
-    border-left-color: blue;
+    font-family: "Segoe UI Light", sans-serif;
+    border-left: 6px solid #a6e3e8;
+    padding-left: 10px;
+    font-weight: lighter;
 }
+
+
+h3 {
+    font-family: "Segoe UI Light", sans-serif;
+    font-weight: lighter;
+    font-size: 12pt;
+}
+
+p {
+    font-family: "Segoe UI Light", sans-serif;
+    color: black;
+    font-size: 12pt;
+}
+
 
 /* CODE FROM W3 SCHOOLS */
 
@@ -54,11 +66,11 @@ h1 {
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #a6e3e8;
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #a6e3e8;
 }
 
 input:checked + .slider:before {
@@ -79,6 +91,12 @@ input:checked + .slider:before {
 
 /* END OF CODE FROM W3C */
 
+#text {
+    display: inline-block;
+    margin-left: 0px;
+    width: 330px;
+}
+
 #onOffToggle {
-    margin-left: 130px;
+    display: inline-block;
 }
