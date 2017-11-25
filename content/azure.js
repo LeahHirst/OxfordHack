@@ -1,5 +1,6 @@
 // Handle all calls to the MS Cognitive Vision API
 
+var subscriptionKey;
 getConfigByKey("subscriptionKey", function(value) {
     subscriptionKey = value;
 })
