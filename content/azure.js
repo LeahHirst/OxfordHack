@@ -1,6 +1,9 @@
 // Handle all calls to the MS Cognitive Vision API
 
-subscriptionKey = '[KEY HERE]';
+subscriptionKeys = {
+  vision: '[KEY]',
+  tts: '[KEY]'
+};
 
 getConfigByKey("subscriptionKey", function(value) {
     subscriptionKey = value;
@@ -21,7 +24,7 @@ function processImage(blob, successCallback) {
         beforeSend: function(xhrObj){
             // Request headers
             xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",  subscriptionKey);
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",  subscriptionKeys.vision);
         },
         type: "POST",
         // Request body
@@ -39,3 +42,19 @@ function processImage(blob, successCallback) {
         alert(errorString);
     });
 };
+
+function textToSpeech(text, callback) {
+  // Uses HTML5 SpeechSynthesisUtterance
+  var msg = new SpeechSynthesisUtterance();
+  var voices = window.speechSynthesis.getVoices();
+  msg.voice = voices[10]; // Note: some voices don't support altering params
+  msg.voiceURI = 'native';
+  msg.volume = 1; // 0 to 1
+  msg.rate = 1; // 0.1 to 10
+  msg.pitch = 1; //0 to 2
+  msg.text = text;
+  msg.lang = 'en-US';
+  msg.onend = callback; // End callback
+
+  speechSynthesis.speak(msg);
+}
