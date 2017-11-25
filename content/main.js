@@ -1,15 +1,24 @@
-// Background script
+// main.js - Main content script
 
-function registerVideo(element) {
+window.onload = function() {
+  // Find all videos of the page
+  var videos = document.getElementsByTagName("video");
 
-}
+  // Only target the first video
+  var target = videos[0];
+  console.log(target);
 
-// Find all videos of the page
-var videos = document.getElementsByTagName("video");
+  // Instanciate SCD with the video
+  var scd = Scd(target, {
+    mode: 'PlaybackMode',
+    step_width: 50,
+    step_height: 37
+  });
 
-setInterval(function() { togglePause(videos[0]); }, 3000);
+  // Add the scene change event listener
+  target.addEventListener('scenechange', function(e) {
+    console.log(e);
+  });
 
-function togglePause(element) {
-  if (element.paused) element.play();
-  else element.pause();
+  target.addEventListener('durationchange', function() { scd.start(); });
 }
