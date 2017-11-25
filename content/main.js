@@ -1,37 +1,45 @@
 // main.js - Main content script
 
-window.onload = function() {
-  // Find all videos of the page
-  var videos = document.getElementsByTagName("video");
+function initWTV() {
+  getConfigByKey('enabled', function(enabled) {
+    if (enabled) {
+      // Find all videos of the page
+      var videos = document.getElementsByTagName("video");
 
-  if (videos != undefined) {
+      if (videos != undefined) {
 
-    // Only target the first video
-    var target = videos[0];
-    target.setAttribute('crossorigin', '*');
-    console.log(target);
+        // Only target the first video
+        var target = videos[0];
+        target.setAttribute('crossorigin', '*');
+        console.log(target);
 
-    // Instanciate SCD with the video
-    var scd = Scd(target, {
-      mode: 'PlaybackMode',
-      step_width: 50,
-      step_height: 37
-    });
+        // Instanciate SCD with the video
+        var scd = Scd(target, {
+          mode: 'PlaybackMode',
+          step_width: 50,
+          step_height: 37
+        });
 
-    // Add the scene change event listener
-    target.addEventListener('scenechange', function(e) {
-      console.log("Scene Changed.");
-      scd.getFrameBlob(function(blob) {
-        processImage(blob, function(data) {
-          target.pause();
-          textToSpeech(data['description']['captions'][0]['text'], function() {
-            target.play();
+        // Add the scene change event listener
+        target.addEventListener('scenechange', function(e) {
+          console.log("Scene Changed.");
+          scd.getFrameBlob(function(blob) {
+            processImage(blob, function(data) {
+              target.pause();
+              textToSpeech(data['description']['captions'][0]['text'], function() {
+                target.play();
+              });
+            })
           });
-        })
-      });
-    });
+        });
 
-    target.addEventListener('durationchange', function() { scd.start(); });
-
-  }
+        console.log("Started tracking scene changes.");
+        scd.start();
+      }
+    }
+  });
 }
+
+window.onload = function() {
+  window.setTimeout(initWTV, 300);
+};
