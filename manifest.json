@@ -10,14 +10,15 @@
         "js/jquery-3.2.1.min.js",
         "js/scd.min.js",
         "js/config.js",
-        "content/main.js",
-        "content/azure.js"
+        "content/azure.js",
+        "content/main.js"
       ],
       "run_at": "document_start"
     }
   ],
   "browser_action": {
-    "default_popup": "popup/index.html"
+    "default_popup": "popup/index.html",
+    "default_icon": "popup/icon.png"
   },
   "permissions": [
     "activeTab",
