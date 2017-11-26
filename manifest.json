@@ -8,7 +8,7 @@
       "matches": ["<all_urls>"],
       "js": [
         "js/jquery-3.2.1.min.js",
-        "js/scd.min.js",
+        "js/scenechangedetect.js",
         "js/config.js",
         "content/azure.js",
         "content/main.js",

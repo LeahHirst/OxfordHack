@@ -33,7 +33,7 @@ function getConfigByKey(key, callback) {
 function setEnabled(state) {
   setConfigByKey('enabled', state);
   // Broadcast the change
-  chrome.runtime.sendMessage({
+  chrome.runtime.sendMessage(null, {
     action: 'stateChange',
     newState: state
   });
