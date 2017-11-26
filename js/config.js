@@ -39,11 +39,16 @@ function setEnabled(state) {
   });
   // Tell the user
   if (state) {
-    textToSpeech('Audio description enabled');
+    textToSpeech('Audio description enabled.');
   } else {
-    textToSpeech('Audio description disabled');
+    textToSpeech('Audio description disabled.');
   }
 
   // if disabled, display a badge saying "off"
   chrome.browserAction.setBadgeText({"text": state ? "" : "off"});
+}
+
+function setVoice(voice) {
+  setConfigByKey('voice', voice);
+  textToSpeech('The quick brown fox jumped over the lazy cow .');
 }

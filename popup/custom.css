@@ -1,0 +1,16 @@
+body {
+  min-width: 300px;
+  padding: 20px;
+}
+
+.inner {
+  padding: 20px;
+}
+
+.wtv_title {
+  text-align: center;
+}
+
+.wtv_title h2 {
+  margin-top: 0;
+}
