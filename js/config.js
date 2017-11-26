@@ -32,6 +32,11 @@ function getConfigByKey(key, callback) {
 
 function setEnabled(state) {
   setConfigByKey('enabled', state);
+  // Broadcast the change
+  chrome.runtime.sendMessage({
+    action: 'stateChange',
+    newState: state
+  });
   // Tell the user
   if (state) {
     textToSpeech('Audio description enabled');
