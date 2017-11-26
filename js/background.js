@@ -7,3 +7,10 @@ chrome.commands.onCommand.addListener(function(command) {
     });
   }
 });
+
+// Forward plugin messages to content scripts
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, request);
+  });
+});
