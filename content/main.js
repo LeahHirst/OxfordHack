@@ -28,6 +28,12 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
       }
     }
   }
+
+  if (request.action == 'updateThreshold') {
+    if (wtvScd != null) {
+      wtvScd.updateThreshold(request.newVal);
+    }
+  }
 });
 
 function initWTV() {
