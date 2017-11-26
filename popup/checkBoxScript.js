@@ -28,6 +28,11 @@ $(document).ready(function() {
     setVisualState(val);
   });
 
+  getConfigByKey('voice', function(val) {
+    console.log("Voice val " + val);
+    $('#wtv_voiceselect').val(val);
+  })
+
   // Register the change
   $('#wtv_adcheckbox').change(function() {
       var element = $('#wtv_adstate');
@@ -38,11 +43,20 @@ $(document).ready(function() {
 
   var threshold = document.getElementById('wtv_threshold');
 
-  threshold.oninput = function() {
-    chrome.runtime.sendMessage({
-      action: 'updateThreshold',
-      newVal: threshold.value
-    })
-  }
+  setTimeout(function() {
+    threshold.oninput = function() {
+      var val = threshold.value;
+
+      setTimeout(function() {
+        if (val == threshold.value) {
+          // Change it
+          chrome.runtime.sendMessage({
+            action: 'updateThreshold',
+            newVal: threshold.value
+          });
+        }
+      }, 1000);
+    }
+  }, 1000);
 
 });
