@@ -9,6 +9,8 @@ chrome.commands.onCommand.addListener(function(command) {
       chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { action: 'stateChange', newState: !val });
       });
+
+      chrome.browserAction.setBadgeText({"text": !val ? "" : "off"});
     });
   }
 });
@@ -20,8 +22,13 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   }
 });
 
-// Forward plugin messages to content scripts
 chrome.runtime.onMessage.addListener(function(request, sender) {
+  if (request.action === "stateChange") {
+    // if disabled, display a badge saying "off"
+    chrome.browserAction.setBadgeText({"text": request.newState ? "" : "off"});
+  }
+
+  // Forward plugin messages to content scripts
   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, request);
   });
