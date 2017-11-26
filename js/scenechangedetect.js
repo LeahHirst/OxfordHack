@@ -53,7 +53,8 @@ function Scd(videoEl, options, callback) {
     step_width: 50,
     step_height: 50,
     minSceneDuration: 0.25,
-    threshold: 110.4182, // 25 * Math.sqrt(255 * 255 * 3) / 100,
+    //threshold: 110.4182, // 25 * Math.sqrt(255 * 255 * 3) / 100,
+    threshold: 70,
     debug: false
   };
 
@@ -143,7 +144,8 @@ function Scd(videoEl, options, callback) {
       // Remove controls from video during process.
       videoEl.controls = false;
 
-      videoEl.currentTime = 0;
+      // Play from current time to allow enable/disabling mid video
+      // videoEl.currentTime = 0;
       videoEl.addEventListener('timeupdate', playbackModeEvent, false);
       videoEl.addEventListener('ended', videoEndedEvent, false);
 
