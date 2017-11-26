@@ -41,6 +41,10 @@ $(document).ready(function() {
       setEnabled(checked);
   });
 
+  $('#wtv_apikey').change(function() {
+    setConfigByKey('apikey', $(this).val());
+  })
+
   var threshold = document.getElementById('wtv_threshold');
 
   setTimeout(function() {
