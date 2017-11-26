@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   // Sets the visual state of the application
   function setVisualState(state) {
-    var element = $('#toggleCheckBox');
+    var element = $('#wtv_adcheckbox');
     if (state) {
       // Enabled
       $('#text').text("Audio description is currently enabled.");
@@ -29,7 +29,7 @@ $(document).ready(function() {
   });
 
   // Register the change
-  $('#toggleCheckBox').change(function() {
+  $('#wtv_adcheckbox').change(function() {
       var element = $('#text');
       var checked = $(this).prop('checked');
       setVisualState(checked);
