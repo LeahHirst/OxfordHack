@@ -288,6 +288,11 @@ function Scd(videoEl, options, callback) {
     return hours + ':' + minutes + ':' + seconds;
   }
 
+  function updateThreshold(val) {
+    console.log("updated threshold");
+    opts.threshold = val;
+  }
+
   return {
     // _start is set after initialization, we can't just return _start().
     start: function() {
@@ -295,7 +300,8 @@ function Scd(videoEl, options, callback) {
     },
     pause: pause,
     stop: _stop,
-    getFrameBlob: getFrameBlob
+    getFrameBlob: getFrameBlob,
+    updateThreshold: updateThreshold
   };
 
 }

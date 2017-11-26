@@ -6,11 +6,11 @@ $(document).ready(function() {
     var element = $('#wtv_adcheckbox');
     if (state) {
       // Enabled
-      $('#text').text("Audio description is currently enabled.");
+      $('#wtv_adstate').text("Audio description is currently enabled.");
       element.prop('checked', true);
     } else {
       // Disabled
-      $('#text').text("Audio description is currently disabled.");
+      $('#wtv_adstate').text("Audio description is currently disabled.");
       element.prop('checked', false);
     }
   }
@@ -30,10 +30,19 @@ $(document).ready(function() {
 
   // Register the change
   $('#wtv_adcheckbox').change(function() {
-      var element = $('#text');
+      var element = $('#wtv_adstate');
       var checked = $(this).prop('checked');
       setVisualState(checked);
       setEnabled(checked);
   });
+
+  var threshold = document.getElementById('wtv_threshold');
+
+  threshold.oninput = function() {
+    chrome.runtime.sendMessage({
+      action: 'updateThreshold',
+      newVal: threshold.value
+    })
+  }
 
 });

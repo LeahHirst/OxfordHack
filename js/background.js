@@ -22,6 +22,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
 // Forward plugin messages to content scripts
 chrome.runtime.onMessage.addListener(function(request, sender) {
+  console.log(request);
   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, request);
   });

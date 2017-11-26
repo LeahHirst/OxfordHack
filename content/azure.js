@@ -54,8 +54,6 @@ function textToSpeech(text, callback) {
     msg.onend = callback; // End callback
     utterances.push(msg);
 
-    msg.text = ' ';
-    speechSynthesis.speak(msg);
     msg.text = text;
     speechSynthesis.speak(msg);
   });
