@@ -1,9 +1,4 @@
 // Handle all calls to the MS Cognitive Vision API
-
-subscriptionKeys = {
-  vision: 'e5c2bd251bdc4a9badee0740a3a27b74'
-};
-
 function processImage(blob, successCallback) {
 
     // We are west europe
@@ -14,26 +9,29 @@ function processImage(blob, successCallback) {
         "maxCandidates": "1",
     };
 
-    $.ajax({
-        url: uriBase + "?" + $.param(params),
-        beforeSend: function(xhrObj){
-            // Request headers
-            xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",  subscriptionKeys.vision);
-        },
-        type: "POST",
-        // Request body
-        data: blob,
-        processData: false
-    })
-    .done(function(data) {
-        successCallback(data);
-    })
-    .fail(function(jqXHR, textStatus, errorThrown) {
-        // Display error message.
-        var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-        errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
-        alert(errorString);
+    // Get the API key
+    getConfigByKey('apikey', function(key) {
+      $.ajax({
+          url: uriBase + "?" + $.param(params),
+          beforeSend: function(xhrObj){
+              // Request headers
+              xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
+              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",  key);
+          },
+          type: "POST",
+          // Request body
+          data: blob,
+          processData: false
+      })
+      .done(function(data) {
+          successCallback(data);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+          // Display error message.
+          var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+          errorString += (jqXHR.responseText === "") ? "" : jQuery.parseJSON(jqXHR.responseText).message;
+          alert(errorString);
+      });
     });
 };
 
