@@ -11,7 +11,7 @@
 - Change the scene detection threshold
 
 ## Installation
-(Currently waiting on the Chrome Web Store to finish publishing the extension. Workaround:)
+[Now on the Chrome Web Store! Download now!](https://chrome.google.com/webstore/detail/wtvid-audio-description/iafgdjbfkgbckpbmmfoapggkmdgofjfn)
 
 Download and extract the repository.
 
