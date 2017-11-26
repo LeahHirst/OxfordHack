@@ -6,6 +6,7 @@ html {
     padding: 10px;
 }
 
+
 h1 {
     font-family: 'Roboto', sans-serif;
     border-left: 6px solid #a6e3e8;
@@ -20,18 +21,20 @@ h3 {
     font-size: 12pt;
 }
 
+
 p {
     font-family: 'Roboto', sans-serif;
     color: black;
-    font-size: 12pt;
+    font-size: 20pt;
 }
+
 
 img {
     float:right
 }
 
 
-/* CODE FROM W3 SCHOOLS */
+/* CODE ADAPTED FROM W3 SCHOOLS */
 
 /* The switch - the box around the slider */
 .switch {
@@ -92,27 +95,9 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-
-/* END OF CODE FROM W3C */
-
-#text {
-    display: inline-block;
-    margin-left: 0px;
-    width: 330px;
-}
-
-#onOffToggle {
-    display: inline-block;
-}
-
-
-
-
-
 #slidecontainer {
     width: 100%;
 }
-
 
 .slidingElement {
     -webkit-appearance: none;
@@ -152,4 +137,16 @@ input:checked + .slider:before {
 
 .slidingElement.round:before {
     border-radius: 50%;
+}
+
+/* END OF ADAPTED CODE */
+
+#text {
+    display: inline-block;
+    margin-left: 0px;
+    width: 330px;
+}
+
+#onOffToggle {
+    display: inline-block;
 }
