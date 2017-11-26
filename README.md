@@ -5,7 +5,8 @@
 <br>
 
 ## Features
-- Automatic audio description of videos (tested with YouTube, Vimeo and native HTML video tags)
+- Automatic audio description of videos (tested with YouTube, Vimeo and native HTML video tags),
+- Toggle AD with keyboard shortcut (by default, Ctrl/Cmd + Shift + 5)
 - Change the Text-to-Speech voice,
 - Change the scene detection threshold
 
