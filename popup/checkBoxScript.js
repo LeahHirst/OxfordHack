@@ -1,21 +1,39 @@
-
+// On ready
 $(document).ready(function() {
-    getConfigByKey('enabled', function(val) {
-      var element = $('#toggleCheckBox');
-      element.prop('checked', val);
-      if (val) {
-        $('#text').text("Audio description is currently enabled.");
-      }
-    });
 
-    $('#toggleCheckBox').change(function() {
-        var element = $('#text');
-        if ($(this).prop('checked')) {
-            element.text("Audio description is currently enabled.");
-            setEnabled(true);
-        } else {
-            setEnabled(false);
-            element.text("Audio description is currently disabled.");
-        }
-    });
+  // Sets the visual state of the application
+  function setVisualState(state) {
+    var element = $('#toggleCheckBox');
+    if (state) {
+      // Enabled
+      $('#text').text("Audio description is currently enabled.");
+      element.prop('checked', true);
+    } else {
+      // Disabled
+      $('#text').text("Audio description is currently disabled.");
+      element.prop('checked', false);
+    }
+  }
+
+  // Listen for plugin messages
+  chrome.runtime.onMessage.addListener(function(request, sender) {
+    // Handle turning the plugin on/off
+    if (request.action == 'stateChange') {
+      setVisualState(request.newState);
+    }
+  });
+
+  // Get inital state
+  getConfigByKey('enabled', function(val) {
+    setVisualState(val);
+  });
+
+  // Register the change
+  $('#toggleCheckBox').change(function() {
+      var element = $('#text');
+      var checked = $(this).prop('checked');
+      setVisualState(checked);
+      setEnabled(checked);
+  });
+
 });
