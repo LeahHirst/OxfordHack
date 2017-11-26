@@ -4,10 +4,6 @@ subscriptionKeys = {
   vision: 'e5c2bd251bdc4a9badee0740a3a27b74'
 };
 
-getConfigByKey("subscriptionKey", function(value) {
-    subscriptionKey = value;
-});
-
 function processImage(blob, successCallback) {
 
     // We are west europe
@@ -43,6 +39,8 @@ function processImage(blob, successCallback) {
 
 function textToSpeech(text, callback) {
   // Uses HTML5 SpeechSynthesisUtterance
+  // Due to a known bug, we need to store the msg in a global var, otherwise
+  // the onend callback does not always fire.
   window.utterances = [];
   var msg = new SpeechSynthesisUtterance();
   var voices = window.speechSynthesis.getVoices();

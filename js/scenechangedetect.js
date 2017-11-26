@@ -144,7 +144,8 @@ function Scd(videoEl, options, callback) {
       // Remove controls from video during process.
       videoEl.controls = false;
 
-      videoEl.currentTime = 0;
+      // Play from current time to allow enable/disabling mid video
+      // videoEl.currentTime = 0;
       videoEl.addEventListener('timeupdate', playbackModeEvent, false);
       videoEl.addEventListener('ended', videoEndedEvent, false);
 

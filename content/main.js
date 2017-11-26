@@ -1,18 +1,26 @@
 // main.js - Main content script
 
 var wtvScd;
+var video;
 var lastMessages = [];
 var sceneProcessing = false;
+var scdEnabled = false;
 
 // Listen for plugin messages
 chrome.runtime.onMessage.addListener(function(request, sender) {
+  console.log(request);
+  // Fires on a URL change (example YouTube)
+  if (request.reinit = true) {
+    initWTV();
+  }
   // Handle turning the plugin on/off
   if (request.action == 'stateChange') {
+    scdEnabled = request.newState;
     if (wtvScd != undefined) {
       if (request.newState) {
-        wtvScd.start();
+        console.log("Starting SCD");
       } else {
-        wtvScd.pause();
+        console.log("Stopping SCD");
       }
     } else {
       if (request.newState) {
@@ -32,52 +40,56 @@ function initWTV() {
 
         // Only target the first video
         var target = videos[0];
-        target.setAttribute('crossorigin', '*');
-        console.log(target);
+        if (target != undefined) {
+          video = target;
+          target.setAttribute('crossorigin', '*');
+          console.log(target);
 
-        // Instanciate SCD with the video
-        wtvScd = Scd(target, {
-          mode: 'PlaybackMode',
-          step_width: 50,
-          step_height: 37
-        });
+          // Instanciate SCD with the video
+          wtvScd = Scd(target, {
+            mode: 'PlaybackMode',
+            step_width: 50,
+            step_height: 37
+          });
 
-        // Add the scene change event listener
-        target.addEventListener('scenechange', function(e) {
-          console.log("Scene Changed.");
+          // Add the scene change event listener
+          target.addEventListener('scenechange', function(e) {
+            console.log("Scene Changed.");
 
-          if (!sceneProcessing) {
-            sceneProcessing = true;
+            if (!scdEnabled) return;
 
-            wtvScd.getFrameBlob(function(blob) {
-              processImage(blob, function(data) {
-                // Get the current state of the playback
-                var digest = data['description']['captions'][0]['text'];
+            if (!sceneProcessing) {
+              sceneProcessing = true;
 
-                for (var i = 0; i < lastMessages.length; i++) {
-                  if (digest === lastMessages[i]) return;
-                }
+              wtvScd.getFrameBlob(function(blob) {
+                processImage(blob, function(data) {
+                  // Get the current state of the playback
+                  var digest = data['description']['captions'][0]['text'];
 
-                // Play the message
-                target.pause();
-                console.log("Playing digest: " + digest);
-                textToSpeech(digest, function() {
-                  target.play();
-                  console.log("Unpausing");
-                  sceneProcessing = false;
-                });
-              })
-            });
-          }
-        });
+                  //for (var i = 0; i < lastMessages.length; i++) {
+                  //  if (digest === lastMessages[i]) return;
+                  //}
 
-        console.log("Started tracking scene changes.");
-        wtvScd.start();
+                  // Play the message
+                  target.pause();
+                  console.log("Playing digest: " + digest);
+                  textToSpeech(digest, function() {
+                    target.play();
+                    console.log("Unpausing");
+                    sceneProcessing = false;
+                  });
+                })
+              });
+            }
+          });
+
+          // Start after small timeout
+          setTimeout(function() {
+            console.log("Started tracking scene changes.");
+            wtvScd.start();
+          }, 300)
+        }
       }
     }
   });
 }
-
-window.onload = function() {
-  window.setTimeout(initWTV, 300);
-};
