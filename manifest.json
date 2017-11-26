@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "WTVid Audio Description",
-  "description": "See it with your own ears.",
+  "description": "Audio Description for native videos.",
   "version": "1.0",
   "content_scripts": [
     {
@@ -39,5 +39,9 @@
     "tabs",
     "http://*/",
     "https://*/"
-  ]
+  ],
+  "icons": {
+    "32": "icons/icon32.png",
+    "128": "icons/icon.png"
+  }
 }
