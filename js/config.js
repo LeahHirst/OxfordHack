@@ -39,8 +39,13 @@ function setEnabled(state) {
   });
   // Tell the user
   if (state) {
-    textToSpeech('Audio description enabled');
+    textToSpeech('Audio description enabled.');
   } else {
-    textToSpeech('Audio description disabled');
+    textToSpeech('Audio description disabled.');
   }
+}
+
+function setVoice(voice) {
+  setConfigByKey('voice', voice);
+  textToSpeech('The quick brown fox jumped over the lazy cow .');
 }
