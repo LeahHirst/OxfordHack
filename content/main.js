@@ -5,6 +5,7 @@ var video;
 var lastMessages = [];
 var sceneProcessing = false;
 var scdEnabled = false;
+var threshold = 70;
 
 // Listen for plugin messages
 chrome.runtime.onMessage.addListener(function(request, sender) {
@@ -30,9 +31,9 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
   }
 
   if (request.action == 'updateThreshold') {
-    if (wtvScd != null) {
-      wtvScd.updateThreshold(request.newVal);
-    }
+    threshold = request.newVal;
+    if (wtvScd != undefined) wtvScd.stop();
+    initWTV();
   }
 });
 
@@ -55,7 +56,8 @@ function initWTV() {
           wtvScd = Scd(target, {
             mode: 'PlaybackMode',
             step_width: 50,
-            step_height: 37
+            step_height: 37,
+            threshold: threshold
           });
 
           // Add the scene change event listener

@@ -88,7 +88,7 @@ function Scd(videoEl, options, callback) {
           break;
         case 'threshold':
           // opts.threshold is set between 0 and MAX_DIFF_100 interval to save on computation later.
-          opts.threshold = +/** @type {number} */ (options[k]) * MAX_DIFF_100;
+          opts.threshold = +/** @type {number} */ (options[k]);
           break;
         case 'debug':
           if (DEBUG)
@@ -288,11 +288,6 @@ function Scd(videoEl, options, callback) {
     return hours + ':' + minutes + ':' + seconds;
   }
 
-  function updateThreshold(val) {
-    console.log("updated threshold");
-    opts.threshold = val;
-  }
-
   return {
     // _start is set after initialization, we can't just return _start().
     start: function() {
@@ -300,8 +295,7 @@ function Scd(videoEl, options, callback) {
     },
     pause: pause,
     stop: _stop,
-    getFrameBlob: getFrameBlob,
-    updateThreshold: updateThreshold
+    getFrameBlob: getFrameBlob
   };
 
 }
