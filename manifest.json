@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Audio Descriptions",
-  "description": "Extension adding descriptions to live videos.",
+  "name": "WTVid Audio Description",
+  "description": "See it with your own ears.",
   "version": "1.0",
   "content_scripts": [
     {
