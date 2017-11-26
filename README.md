@@ -11,8 +11,12 @@
 - Change the scene detection threshold
 
 ## Installation
+(Currently waiting on the Chrome Web Store to finish publishing the extension. Workaround:)
+
 Download and extract the repository.
 
 Using chrome, navigate to [chrome://extensions](chrome://extensions), enable developer mode by clicking the 'Developer mode' checkbox at the top right of the page.
 
 Load the extension using the 'Load unpack extension...' button and select the extracted folder (with the `manifest.json` file inside).
+
+Open the popup and enter your Microsoft Cognitive Services Computer Vision API key (learn more here: https://azure.microsoft.com/en-gb/services/cognitive-services/computer-vision/ )
