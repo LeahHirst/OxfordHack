@@ -14,3 +14,12 @@ body {
 .wtv_title h2 {
   margin-top: 0;
 }
+
+.wtv_footer {
+  text-align: center;
+  line-height: 10px;
+}
+
+.wtv_msft {
+  margin-bottom: -1px;
+}
