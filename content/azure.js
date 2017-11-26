@@ -1,13 +1,8 @@
 // Handle all calls to the MS Cognitive Vision API
 
 subscriptionKeys = {
-  vision: 'e5c2bd251bdc4a9badee0740a3a27b74',
-  tts: '7653cc07e944451480f53fc65dfb13a3'
+  vision: 'e5c2bd251bdc4a9badee0740a3a27b74'
 };
-
-getConfigByKey("subscriptionKey", function(value) {
-    subscriptionKey = value;
-});
 
 function processImage(blob, successCallback) {
 
@@ -44,6 +39,9 @@ function processImage(blob, successCallback) {
 
 function textToSpeech(text, callback) {
   // Uses HTML5 SpeechSynthesisUtterance
+  // Due to a known bug, we need to store the msg in a global var, otherwise
+  // the onend callback does not always fire.
+  window.utterances = [];
   var msg = new SpeechSynthesisUtterance();
   var voices = window.speechSynthesis.getVoices();
   msg.voice = voices[10]; // Note: some voices don't support altering params
@@ -54,6 +52,7 @@ function textToSpeech(text, callback) {
   msg.text = text;
   msg.lang = 'en-US';
   msg.onend = callback; // End callback
+  utterances.push(msg);
 
   speechSynthesis.speak(msg);
 }

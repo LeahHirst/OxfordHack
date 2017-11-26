@@ -32,6 +32,11 @@ function getConfigByKey(key, callback) {
 
 function setEnabled(state) {
   setConfigByKey('enabled', state);
+  // Broadcast the change
+  chrome.runtime.sendMessage(null, {
+    action: 'stateChange',
+    newState: state
+  });
   // Tell the user
   if (state) {
     textToSpeech('Audio description enabled');
@@ -39,13 +44,3 @@ function setEnabled(state) {
     textToSpeech('Audio description disabled');
   }
 }
-
-// Register command listener
-chrome.commands.onCommand.addListener(function(command) {
-  // Toggle state
-  if (command === 'toggle-ad') {
-    getConfigByKey('enabled', function(val) {
-      setEnabled(!val);
-    });
-  }
-});

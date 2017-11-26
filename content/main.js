@@ -1,5 +1,35 @@
 // main.js - Main content script
 
+var wtvScd;
+var video;
+var lastMessages = [];
+var sceneProcessing = false;
+var scdEnabled = false;
+
+// Listen for plugin messages
+chrome.runtime.onMessage.addListener(function(request, sender) {
+  console.log(request);
+  // Fires on a URL change (example YouTube)
+  if (request.reinit = true) {
+    initWTV();
+  }
+  // Handle turning the plugin on/off
+  if (request.action == 'stateChange') {
+    scdEnabled = request.newState;
+    if (wtvScd != undefined) {
+      if (request.newState) {
+        console.log("Starting SCD");
+      } else {
+        console.log("Stopping SCD");
+      }
+    } else {
+      if (request.newState) {
+        initWTV();
+      }
+    }
+  }
+});
+
 function initWTV() {
   getConfigByKey('enabled', function(enabled) {
     if (enabled) {
@@ -10,36 +40,56 @@ function initWTV() {
 
         // Only target the first video
         var target = videos[0];
-        target.setAttribute('crossorigin', '*');
-        console.log(target);
+        if (target != undefined) {
+          video = target;
+          target.setAttribute('crossorigin', '*');
+          console.log(target);
 
-        // Instanciate SCD with the video
-        var scd = Scd(target, {
-          mode: 'PlaybackMode',
-          step_width: 50,
-          step_height: 37
-        });
-
-        // Add the scene change event listener
-        target.addEventListener('scenechange', function(e) {
-          console.log("Scene Changed.");
-          scd.getFrameBlob(function(blob) {
-            processImage(blob, function(data) {
-              target.pause();
-              textToSpeech(data['description']['captions'][0]['text'], function() {
-                target.play();
-              });
-            })
+          // Instanciate SCD with the video
+          wtvScd = Scd(target, {
+            mode: 'PlaybackMode',
+            step_width: 50,
+            step_height: 37
           });
-        });
 
-        console.log("Started tracking scene changes.");
-        scd.start();
+          // Add the scene change event listener
+          target.addEventListener('scenechange', function(e) {
+            console.log("Scene Changed.");
+
+            if (!scdEnabled) return;
+
+            if (!sceneProcessing) {
+              sceneProcessing = true;
+
+              wtvScd.getFrameBlob(function(blob) {
+                processImage(blob, function(data) {
+                  // Get the current state of the playback
+                  var digest = data['description']['captions'][0]['text'];
+
+                  //for (var i = 0; i < lastMessages.length; i++) {
+                  //  if (digest === lastMessages[i]) return;
+                  //}
+
+                  // Play the message
+                  target.pause();
+                  console.log("Playing digest: " + digest);
+                  textToSpeech(digest, function() {
+                    target.play();
+                    console.log("Unpausing");
+                    sceneProcessing = false;
+                  });
+                })
+              });
+            }
+          });
+
+          // Start after small timeout
+          setTimeout(function() {
+            console.log("Started tracking scene changes.");
+            wtvScd.start();
+          }, 300)
+        }
       }
     }
   });
 }
-
-window.onload = function() {
-  window.setTimeout(initWTV, 300);
-};
