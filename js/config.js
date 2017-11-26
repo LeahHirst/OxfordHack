@@ -43,4 +43,7 @@ function setEnabled(state) {
   } else {
     textToSpeech('Audio description disabled');
   }
+
+  // if disabled, display a badge saying "off"
+  chrome.browserAction.setBadgeText({"text": state ? "" : "off"});
 }
