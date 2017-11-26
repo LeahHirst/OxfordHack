@@ -4,8 +4,9 @@ var wtvScd;
 var video;
 var lastMessages = [];
 var sceneProcessing = false;
-var scdEnabled = false;
+var scdEnabled = true;
 var threshold = 70;
+var scene = 0;
 
 // Listen for plugin messages
 chrome.runtime.onMessage.addListener(function(request, sender) {
@@ -67,16 +68,32 @@ function initWTV() {
             if (!scdEnabled) return;
 
             if (!sceneProcessing) {
+              scene++;
               sceneProcessing = true;
+              var sceneN = scene;
+
+              setTimeout(function() {
+                if (sceneN == scene) {
+                  sceneProcessing = false;
+                }
+              }, 3000);
 
               wtvScd.getFrameBlob(function(blob) {
                 processImage(blob, function(data) {
                   // Get the current state of the playback
                   var digest = data['description']['captions'][0]['text'];
 
-                  //for (var i = 0; i < lastMessages.length; i++) {
-                  //  if (digest === lastMessages[i]) return;
-                  //}
+                  for (var i = 0; i < lastMessages.length; i++) {
+                    if (digest === lastMessages[i]) return;
+                  }
+
+                  lastMessages.push(digest);
+
+                  var nIndex = lastMessages.indexOf(digest);
+
+                  setTimeout(function() {
+                    lastMessages[nIndex] = '';
+                  }, 30000);
 
                   // Play the message
                   target.pause();
